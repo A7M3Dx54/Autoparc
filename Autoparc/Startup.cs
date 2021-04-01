@@ -12,6 +12,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Autoparc.Models;
+using Autoparc.SwaggerConfiguration;
+using Autoparc.Services;
+using Autoparc.Dao;
+using NgrokAspNetCore;
 
 namespace Autoparc
 {
@@ -29,7 +33,25 @@ namespace Autoparc
         {
             //services.AddDbContext<VehiculeContext>(opt =>opt.UseInMemoryDatabase("TodoList"));
             services.AddDbContext<VehiculeContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("AutoparcConnection")));
-            services.AddDbContext<VehiculeContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("AutoparcConnection")));
+            services.AddSwaggerGenCustom("autoparc","v1");
+
+            services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
+            services.AddTransient<IVehiculeRepository, VehiculeRepository>();
+            services.AddTransient<ITacheRepository, TacheRepository>();
+            services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<IEntretienRepository, EntretienRepository>();
+            services.AddTransient<IEntretienTypeRepository, EntretienTypeRepository>();
+            services.AddTransient<ILocationRepository, LocationRepository>();
+
+
+            services.AddTransient<IVehiculeService, VehiculeService>();
+            services.AddTransient<ITacheService, TacheService>();
+            services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IEntretienService, EntretienService>();
+            services.AddTransient<IEntretienTypeService, EntretienTypeService>();
+            services.AddTransient<ILocationService, LocationService>();
+
+            services.AddNgrok();
             services.AddControllers();
         }
 
@@ -44,6 +66,11 @@ namespace Autoparc
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+
+            app.AddSwaggerConfigCustom(Configuration);
+
+            
 
             app.UseAuthorization();
 
