@@ -12,6 +12,7 @@ namespace Autoparc.Services
     {
         private readonly ITacheRepository tacheRepository;
 
+
         public TacheService(ITacheRepository tacheRepository)
         {
             this.tacheRepository = tacheRepository;
@@ -30,6 +31,10 @@ namespace Autoparc.Services
         public async Task<ActionResult<Tache>> GetTacheById(int id)
         {
             return await tacheRepository.GetTacheById(id);
+        } 
+        public async Task<ActionResult<IEnumerable<Tache>>> GetTaskByUser(String cin)
+        {
+            return await tacheRepository.GetTaskByUser(cin);
         }
 
         public async Task<IActionResult> update(int id, Tache tache)

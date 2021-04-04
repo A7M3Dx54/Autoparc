@@ -52,6 +52,16 @@ namespace Autoparc.Controllers
             return task;
         }
 
+        [Route("[action]/{cin}")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Tache>>> GetTaskByUser(String cin)
+        {
+            return await tacheService.GetTaskByUser(cin);
+
+        }
+
+
+
         [HttpPut("{id}")]
         public async Task<IActionResult> PutTask(int id, Tache tache)
         {

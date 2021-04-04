@@ -41,5 +41,16 @@ namespace Autoparc.Services
         {
             return await userRepository.delete(id);
         }
+        // try
+        public async Task<ActionResult<User>> login(string cin, string password)
+        {
+            ActionResult<User> actionResult = await userRepository.GetUserById(cin);
+            if (actionResult != null && userRepository.login(cin, password))
+            {
+                return actionResult;
+
+            }
+                return null;
+        }
     }
 }

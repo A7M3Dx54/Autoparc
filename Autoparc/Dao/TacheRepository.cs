@@ -27,6 +27,21 @@ namespace Autoparc.Dao
             }
 
         }
+        public async Task<ActionResult<IEnumerable<Tache>>> GetTaskByUser(String cin)
+        {
+            try
+            {
+                return await _context.taches.Where(item => item.cin == cin).ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new NotImplementedException();
+            }
+
+        }
+      
+
+
         public async Task<int> add(Tache tache)
         {
             _context.taches.Add(tache);

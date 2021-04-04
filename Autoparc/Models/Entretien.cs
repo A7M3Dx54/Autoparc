@@ -21,12 +21,13 @@ namespace Autoparc.Models
         [ForeignKey("registrationNumber")]
         public virtual Vehicule Vehicule { get; set; }
 
-        public string cin { get; set; }
-        [ForeignKey("cin")]
-        public virtual User User { get; set; }
-
         public int idType { get; set; }
         [ForeignKey("idType")]
         public virtual EntretienType EntretienType { get; set; }
+
+        public string cin { get; set; }
+        [ForeignKey("cin")]
+        public virtual User User { get; set; }
+        
     }
 }

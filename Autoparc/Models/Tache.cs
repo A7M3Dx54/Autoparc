@@ -19,14 +19,15 @@ namespace Autoparc.Models
         public string arrivalDate { get; set; }
         public string description { get; set; }
 
-        
+        public string cin { get; set; }
+        [ForeignKey("cin")]
+        public virtual User User { get; set; }
+
         public string registrationNumber { get; set; }
         [ForeignKey("registrationNumber")]
         public virtual  Vehicule Vehicule { get; set; }
 
-        /*public string cin { get; set; }
-        [ForeignKey("cin")]
-        public virtual Driver Driver { get; set; }*/
+        
 
         public Tache() { }
 

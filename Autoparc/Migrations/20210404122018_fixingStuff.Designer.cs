@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Autoparc.Migrations
 {
     [DbContext(typeof(VehiculeContext))]
-    [Migration("20210330130750_fixVehiculeID")]
-    partial class fixVehiculeID
+    [Migration("20210404122018_fixingStuff")]
+    partial class fixingStuff
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -71,8 +71,8 @@ namespace Autoparc.Migrations
                     b.Property<int>("idType")
                         .HasColumnType("int");
 
-                    b.Property<int>("idVehicule")
-                        .HasColumnType("int");
+                    b.Property<string>("registrationNumber")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("state")
                         .HasColumnType("nvarchar(max)");
@@ -83,7 +83,7 @@ namespace Autoparc.Migrations
 
                     b.HasIndex("idType");
 
-                    b.HasIndex("idVehicule");
+                    b.HasIndex("registrationNumber");
 
                     b.ToTable("entretiens");
                 });
@@ -116,6 +116,9 @@ namespace Autoparc.Migrations
                     b.Property<string>("arrivalPoint")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("cin")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("date")
                         .HasColumnType("nvarchar(max)");
 
@@ -128,15 +131,17 @@ namespace Autoparc.Migrations
                     b.Property<string>("description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("idVehicule")
-                        .HasColumnType("int");
+                    b.Property<string>("registrationNumber")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("state")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("id");
 
-                    b.HasIndex("idVehicule");
+                    b.HasIndex("cin");
+
+                    b.HasIndex("registrationNumber");
 
                     b.ToTable("taches");
                 });
@@ -177,10 +182,8 @@ namespace Autoparc.Migrations
 
             modelBuilder.Entity("Autoparc.Models.Vehicule", b =>
                 {
-                    b.Property<int>("idVehicule")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<string>("registrationNumber")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<double>("kmPerLittre")
                         .HasColumnType("float");
@@ -189,9 +192,6 @@ namespace Autoparc.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("model")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("registrationNumber")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("reservoir")
@@ -203,7 +203,7 @@ namespace Autoparc.Migrations
                     b.Property<long>("totalDistance")
                         .HasColumnType("bigint");
 
-                    b.HasKey("idVehicule");
+                    b.HasKey("registrationNumber");
 
                     b.ToTable("vehicules");
                 });
@@ -231,9 +231,7 @@ namespace Autoparc.Migrations
 
                     b.HasOne("Autoparc.Models.Vehicule", "Vehicule")
                         .WithMany()
-                        .HasForeignKey("idVehicule")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("registrationNumber");
 
                     b.Navigation("EntretienType");
 
@@ -244,11 +242,15 @@ namespace Autoparc.Migrations
 
             modelBuilder.Entity("Autoparc.Models.Tache", b =>
                 {
+                    b.HasOne("Autoparc.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("cin");
+
                     b.HasOne("Autoparc.Models.Vehicule", "Vehicule")
                         .WithMany()
-                        .HasForeignKey("idVehicule")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("registrationNumber");
+
+                    b.Navigation("User");
 
                     b.Navigation("Vehicule");
                 });

@@ -56,9 +56,18 @@ namespace Autoparc.Controllers
             return await userService.delete(cin);
         }
 
-        private bool UserExists(string cin)
+        /*private bool UserExists(string cin)
+         {
+             return _context.users.Any(e => e.cin == cin);
+         }
+        */
+        [Route("[action]/{cin}/{password}")]
+        [HttpGet]
+        public async Task<ActionResult<User>> login(string cin, string password)
         {
-            return _context.users.Any(e => e.cin == cin);
+            return await userService.login(cin, password);
         }
+
+
     }
 }

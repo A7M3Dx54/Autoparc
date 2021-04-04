@@ -11,6 +11,7 @@ namespace Autoparc.Dao
     {
         public Task<ActionResult<IEnumerable<Tache>>> GetAll();
         public Task<ActionResult<Tache>> GetTacheById(int id);
+        public Task<ActionResult<IEnumerable<Tache>>> GetTaskByUser(String cin);
         Task<int> add(Tache tache);
         public Task<IActionResult> update(int id, Tache tache);
         public Task<ActionResult<Tache>> delete(int id);

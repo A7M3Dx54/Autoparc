@@ -90,5 +90,11 @@ namespace Autoparc.Dao
         {
             return _context.users.Any(e => e.cin == cin);
         }
+
+        public bool login(string cin,string password)
+        {
+            User user = _context.users.Where(item => item.cin == cin && item.password == password).FirstOrDefault();
+            return user != null;
+        }
     }
 }
