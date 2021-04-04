@@ -46,30 +46,43 @@ namespace Autoparc.Dao
 
         public async Task<IActionResult> update(string registrationNumber, Vehicule vehicule)
         {
-            /*if (registrationNumber != vehicule.registrationNumber)
-            {
-                 throw new NotImplementedException(); 
-            }*/
+           
 
-            _context.Entry(vehicule).State = EntityState.Modified;
-
-            try
+            if (registrationNumber != vehicule.registrationNumber)
             {
-                await _context.SaveChangesAsync();
+                // throw new NotImplementedException(); 
+                await add(vehicule);
+                dynamic itemsForUpdate = await _context.taches.Where(item => item.registrationNumber == registrationNumber).ToListAsync();
+                for (int i = 0; i < itemsForUpdate.Count; i++)
+                    itemsForUpdate[i].registrationNumber = vehicule.registrationNumber;
+
+                itemsForUpdate = await _context.entretiens.Where(item => item.registrationNumber == registrationNumber).ToListAsync();
+                for (int i = 0; i < itemsForUpdate.Count; i++)
+                    itemsForUpdate[i].registrationNumber = vehicule.registrationNumber;
+                await delete(registrationNumber);
             }
-            catch (DbUpdateConcurrencyException)
+            else
             {
-                if (!VehiculeExists(registrationNumber))
+                _context.Entry(vehicule).State = EntityState.Modified;
+
+                try
                 {
-                    throw new NotImplementedException();
+                    await _context.SaveChangesAsync();
                 }
-                else
+                catch (DbUpdateConcurrencyException)
                 {
-                    throw;
+                    if (!VehiculeExists(registrationNumber))
+                    {
+                        throw new NotImplementedException();
+                    }
+                    else
+                    {
+                        throw;
+                    }
                 }
             }
-
-            return new EmptyResult(); ;
+         
+            return new EmptyResult(); 
         }
 
         public async Task<ActionResult<Vehicule>> delete(string registrationNumber)

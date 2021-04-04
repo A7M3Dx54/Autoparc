@@ -46,29 +46,50 @@ namespace Autoparc.Dao
 
         public async Task<IActionResult> update(string cin, User user)
         {
-            if (cin != user.cin)
+           if (cin != user.cin)
             {
-                throw new NotImplementedException();
-            }
+                
+                await add(user);
+                
+                dynamic  itemsForUpdate = await _context.taches.Where(item => item.cin == cin).ToListAsync();
+                for (int i = 0; i < itemsForUpdate.Count; i++)
+                    itemsForUpdate[i].cin = user.cin;
+                
+                itemsForUpdate = await _context.entretiens.Where(item => item.cin == cin).ToListAsync();
+                for (int i = 0; i < itemsForUpdate.Count; i++)
+                    itemsForUpdate[i].cin = user.cin;
 
-            _context.Entry(user).State = EntityState.Modified;
+                itemsForUpdate = await _context.driverLocationsHistory.Where(item => item.cin == cin).ToListAsync();
+                for (int i = 0; i < itemsForUpdate.Count; i++)
+                    itemsForUpdate[i].cin = user.cin;
 
-            try
-            {
                 await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!UserExists(cin))
-                {
-                    throw new NotImplementedException();
-                }
-                else
-                {
-                    throw;
-                }
-            }
 
+                await delete(cin);
+
+            }
+            else
+            {
+                _context.Entry(user).State = EntityState.Modified;
+
+                try
+                {
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!UserExists(cin))
+                    {
+                        throw new NotImplementedException();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+            }
+            
+           
             return new EmptyResult(); ;
         }
 
