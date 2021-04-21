@@ -52,5 +52,17 @@ namespace Autoparc.Services
             }
                 return null;
         }
+
+        public async Task<IActionResult> changeStateByCin(string cin, string state)
+        {
+            if (cin!=null && state!=null)
+            {
+                return await userRepository.changeStateByCin(cin,state); 
+            }
+            else
+            {
+                return null; 
+            }
+        }
     }
 }

@@ -85,5 +85,12 @@ namespace Autoparc.Controllers
         {
             return _context.taches.Any(e => e.id == id);
         }
+
+        [Route("[action]/{id}/{state}")]
+        [HttpGet]
+        public async Task<IActionResult> changeStateById(int id, string state)
+        {
+            return await tacheService.changeStateById(id, state);
+        }
     }
 }

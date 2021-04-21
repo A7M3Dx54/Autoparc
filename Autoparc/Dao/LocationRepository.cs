@@ -32,7 +32,6 @@ namespace Autoparc.Dao
             _context.driverLocationsHistory.Add(driverLocationHistory);
             return await _context.SaveChangesAsync();
         }
-
         public async Task<ActionResult<DriverLocationHistory>> GetDriverLocationHistoryById(int id)
         {
             var driverLocationHistory = await _context.driverLocationsHistory.FindAsync(id);
@@ -44,7 +43,6 @@ namespace Autoparc.Dao
 
             return driverLocationHistory;
         }
-
         public async Task<IActionResult> update(int id, DriverLocationHistory driverLocationHistory)
         {
             if (id != driverLocationHistory.idLocation)
@@ -72,7 +70,6 @@ namespace Autoparc.Dao
 
             return new EmptyResult(); ;
         }
-
         public async Task<ActionResult<DriverLocationHistory>> delete(int id)
         {
             var driverLocationHistory = await _context.driverLocationsHistory.FindAsync(id);
@@ -86,10 +83,25 @@ namespace Autoparc.Dao
 
             return driverLocationHistory;
         }
-
         private bool DriverLocationHistoryExists(int id)
         {
             return _context.driverLocationsHistory.Any(e => e.idLocation == id);
+        }
+        public List<IQueryable<DriverLocationHistory>> GetAllRecentLocations()
+        {
+            var users = _context.users.Where(i => i.state=="Active" && i.role=="driver");
+            List<IQueryable<DriverLocationHistory>> locations = new List<IQueryable<DriverLocationHistory>>() ; 
+            IQueryable<DriverLocationHistory> allUserLocations =null; 
+            foreach (User user in users)
+            {
+                allUserLocations = _context.driverLocationsHistory.Where(i => i.cin==user.cin);
+                int max = allUserLocations.Max(i => i.idLocation);
+                //var lastLocation = GetDriverLocationHistoryById(max);
+                var lastLocation = _context.driverLocationsHistory.Where(i => i.idLocation == max);
+
+                locations.Add(lastLocation);
+            }
+            return locations; 
         }
     }
 }

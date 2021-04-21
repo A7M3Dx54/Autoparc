@@ -39,15 +39,11 @@ namespace Autoparc.Dao
             }
 
         }
-      
-
-
         public async Task<int> add(Tache tache)
         {
             _context.taches.Add(tache);
             return await _context.SaveChangesAsync();
         }
-
         public async Task<ActionResult<Tache>> GetTacheById(int id)
         {
             var tache = await _context.taches.FindAsync(id);
@@ -59,7 +55,6 @@ namespace Autoparc.Dao
 
             return tache;
         }
-
         public async Task<IActionResult> update(int id, Tache tache)
         {
             if (id != tache.id)
@@ -87,7 +82,6 @@ namespace Autoparc.Dao
 
             return new EmptyResult(); ;
         }
-
         public async Task<ActionResult<Tache>> delete(int id)
         {
             var tache = await _context.taches.FindAsync(id);
@@ -101,10 +95,15 @@ namespace Autoparc.Dao
 
             return tache;
         }
-
         private bool TacheExists(int id)
         {
             return _context.taches.Any(e => e.id == id);
+        }
+        public async Task<IActionResult> changeStateById(int id, string state)
+        {
+            var task = await _context.taches.FindAsync(id);
+            task.state = state;
+            return await update(id, task);
         }
     }
 }

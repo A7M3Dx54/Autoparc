@@ -61,5 +61,13 @@ namespace Autoparc.Controllers
         {
             return _context.vehicules.Any(e => e.registrationNumber == registrationNumber);
         }
+
+        [Route("[action]/{registrationNumber}/{state}")]
+        [HttpGet]
+        public async Task<IActionResult> changeStateByRegistrationNumber(string registrationNumber, string state)
+        {
+            return await vehiculeService.changeStateByRegistrationNumber(registrationNumber, state);
+        }
+
     }
 }

@@ -3,14 +3,16 @@ using Autoparc.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Autoparc.Migrations
 {
     [DbContext(typeof(VehiculeContext))]
-    partial class VehiculeContextModelSnapshot : ModelSnapshot
+    [Migration("20210420164309_Add-priority-period-usedCar")]
+    partial class AddpriorityperiodusedCar
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -13,6 +13,7 @@ namespace Autoparc.Dao
         public Task<ActionResult<Vehicule>> GetVehiculeById(string registrationNumber);
         Task<int> add(Vehicule vehicule);
         public Task<IActionResult> update(string registrationNumber, Vehicule vehicule);
-        public Task<ActionResult<Vehicule>> delete(string registrationNumber); 
+        public Task<ActionResult<Vehicule>> delete(string registrationNumber);
+        public Task<IActionResult> changeStateByRegistrationNumber(string registrationNumber, string state);
     }
 }

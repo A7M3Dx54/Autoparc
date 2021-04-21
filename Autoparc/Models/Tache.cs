@@ -18,6 +18,8 @@ namespace Autoparc.Models
         public string departureDate { get; set; }
         public string arrivalDate { get; set; }
         public string description { get; set; }
+        public string priority { get; set; }
+        public string usedCar { get; set; }
 
         public string cin { get; set; }
         [ForeignKey("cin")]

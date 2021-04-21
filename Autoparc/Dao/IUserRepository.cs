@@ -15,6 +15,6 @@ namespace Autoparc.Dao
         public Task<IActionResult> update(string cin, User user);
         public Task<ActionResult<User>> delete(string cin);
         public bool login(string cin, string password);
-
+        public Task<IActionResult> changeStateByCin(string cin, string state);
     }
 }

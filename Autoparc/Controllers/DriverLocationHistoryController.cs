@@ -38,6 +38,12 @@ namespace Autoparc.Controllers
             return await locationService.GetDriverLocationHistoryById(id);
         }
 
+        [Route("[action]")]
+        [HttpGet]
+        public List<IQueryable<DriverLocationHistory>> GetAllRecentLocations()
+        {
+            return locationService.GetAllRecentLocations();
+        }
         /*[Route("[action]/{matricule}")]
         [HttpGet]
         public IQueryable<Tache> GetTaskByVehicule(string matricule)

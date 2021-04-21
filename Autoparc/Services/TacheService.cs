@@ -46,5 +46,10 @@ namespace Autoparc.Services
         {
             return await tacheRepository.delete(id);
         }
+
+        public async Task<IActionResult> changeStateById(int id, string state)
+        {
+            return await tacheRepository.changeStateById(id, state);
+        }
     }
 }

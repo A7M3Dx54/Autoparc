@@ -117,5 +117,12 @@ namespace Autoparc.Dao
             User user = _context.users.Where(item => item.cin == cin && item.password == password).FirstOrDefault();
             return user != null;
         }
+
+        public async Task<IActionResult> changeStateByCin(string cin,string state)
+        {
+            var user = await _context.users.FindAsync(cin);
+            user.state = state;
+            return await update(cin, user); 
+        }
     }
 }

@@ -15,5 +15,6 @@ namespace Autoparc.Dao
         Task<int> add(Tache tache);
         public Task<IActionResult> update(int id, Tache tache);
         public Task<ActionResult<Tache>> delete(int id);
+        public Task<IActionResult> changeStateById(int id, string state);
     }
 }

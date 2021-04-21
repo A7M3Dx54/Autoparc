@@ -14,5 +14,6 @@ namespace Autoparc.Dao
         Task<int> add(DriverLocationHistory driverLocationHistory);
         public Task<IActionResult> update(int id, DriverLocationHistory driverLocationHistory);
         public Task<ActionResult<DriverLocationHistory>> delete(int id);
+        public List<IQueryable<DriverLocationHistory>> GetAllRecentLocations(); 
     }
 }

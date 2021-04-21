@@ -68,6 +68,12 @@ namespace Autoparc.Controllers
             return await userService.login(cin, password);
         }
 
+        [Route("[action]/{cin}/{state}")]
+        [HttpGet]
+        public async Task<IActionResult> changeStateByCin(string cin, string state)
+        {
+            return await userService.changeStateByCin(cin, state);
+        }
 
     }
 }

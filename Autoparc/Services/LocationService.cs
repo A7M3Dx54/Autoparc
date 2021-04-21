@@ -41,5 +41,9 @@ namespace Autoparc.Services
         {
             return await locationRepository.delete(id);
         }
+        public List<IQueryable<DriverLocationHistory>> GetAllRecentLocations()
+        {
+            return locationRepository.GetAllRecentLocations();
+        }
     }
 }

@@ -43,5 +43,10 @@ namespace Autoparc.Services
         {
             return await vehiculeRepository.delete(registrationNumber);
         }
+
+        public async Task<IActionResult> changeStateByRegistrationNumber(string registrationNumber, string state)
+        {
+            return await vehiculeRepository.changeStateByRegistrationNumber(registrationNumber,state);
+        }
     }
 }

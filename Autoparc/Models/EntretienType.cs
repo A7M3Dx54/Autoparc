@@ -11,5 +11,6 @@ namespace Autoparc.Models
         [Key]
         public int idType { get; set; }
         public string label { get; set; }
+        public int period { get; set; }
     }
 }

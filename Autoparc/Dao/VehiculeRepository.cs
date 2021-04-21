@@ -43,7 +43,6 @@ namespace Autoparc.Dao
 
             return vehicule;
         }
-
         public async Task<IActionResult> update(string registrationNumber, Vehicule vehicule)
         {
            
@@ -84,7 +83,6 @@ namespace Autoparc.Dao
          
             return new EmptyResult(); 
         }
-
         public async Task<ActionResult<Vehicule>> delete(string registrationNumber)
         {
             var vehicule = await _context.vehicules.FindAsync(registrationNumber);
@@ -98,11 +96,15 @@ namespace Autoparc.Dao
 
             return vehicule;
         }
-
         private bool VehiculeExists(string registrationNumber)
         {
             return _context.vehicules.Any(e => e.registrationNumber == registrationNumber);
         }
-
+        public async Task<IActionResult> changeStateByRegistrationNumber(string registrationNumber, string state)
+        {
+            var vehicule = await _context.vehicules.FindAsync(registrationNumber);
+            vehicule.state = state;
+            return await update(registrationNumber, vehicule);
+        }
     }
 }
