@@ -54,10 +54,6 @@ namespace Autoparc.Dao
                 dynamic  itemsForUpdate = await _context.taches.Where(item => item.cin == cin).ToListAsync();
                 for (int i = 0; i < itemsForUpdate.Count; i++)
                     itemsForUpdate[i].cin = user.cin;
-                
-                itemsForUpdate = await _context.entretiens.Where(item => item.cin == cin).ToListAsync();
-                for (int i = 0; i < itemsForUpdate.Count; i++)
-                    itemsForUpdate[i].cin = user.cin;
 
                 itemsForUpdate = await _context.driverLocationsHistory.Where(item => item.cin == cin).ToListAsync();
                 for (int i = 0; i < itemsForUpdate.Count; i++)

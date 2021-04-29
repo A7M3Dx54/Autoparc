@@ -25,9 +25,9 @@ namespace Autoparc.Models
         [ForeignKey("idType")]
         public virtual EntretienType EntretienType { get; set; }
 
-        public string cin { get; set; }
-        [ForeignKey("cin")]
-        public virtual User User { get; set; }
+        public int idTask { get; set; }
+        [ForeignKey("idTask")]
+        public virtual Tache Tache { get; set; }
         
     }
 }
