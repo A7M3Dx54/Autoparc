@@ -43,28 +43,9 @@ namespace Autoparc.Dao
 
             return user;
         }
-
         public async Task<IActionResult> update(string cin, User user)
         {
            if (cin != user.cin)
-            {
-                
-                await add(user);
-                
-                dynamic  itemsForUpdate = await _context.taches.Where(item => item.cin == cin).ToListAsync();
-                for (int i = 0; i < itemsForUpdate.Count; i++)
-                    itemsForUpdate[i].cin = user.cin;
-
-                itemsForUpdate = await _context.driverLocationsHistory.Where(item => item.cin == cin).ToListAsync();
-                for (int i = 0; i < itemsForUpdate.Count; i++)
-                    itemsForUpdate[i].cin = user.cin;
-
-                await _context.SaveChangesAsync();
-
-                await delete(cin);
-
-            }
-            else
             {
                 _context.Entry(user).State = EntityState.Modified;
 
@@ -84,11 +65,8 @@ namespace Autoparc.Dao
                     }
                 }
             }
-            
-           
             return new EmptyResult(); ;
         }
-
         public async Task<ActionResult<User>> delete(string cin)
         {
             var user = await _context.users.FindAsync(cin);
@@ -102,18 +80,15 @@ namespace Autoparc.Dao
 
             return user;
         }
-
         private bool UserExists(string cin)
         {
             return _context.users.Any(e => e.cin == cin);
         }
-
         public bool login(string cin,string password)
         {
             User user = _context.users.Where(item => item.cin == cin && item.password == password).FirstOrDefault();
             return user != null;
         }
-
         public async Task<IActionResult> changeStateByCin(string cin,string state)
         {
             var user = await _context.users.FindAsync(cin);

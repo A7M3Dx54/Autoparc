@@ -49,19 +49,6 @@ namespace Autoparc.Dao
 
             if (registrationNumber != vehicule.registrationNumber)
             {
-                // throw new NotImplementedException(); 
-                await add(vehicule);
-                dynamic itemsForUpdate = await _context.taches.Where(item => item.registrationNumber == registrationNumber).ToListAsync();
-                for (int i = 0; i < itemsForUpdate.Count; i++)
-                    itemsForUpdate[i].registrationNumber = vehicule.registrationNumber;
-
-                itemsForUpdate = await _context.entretiens.Where(item => item.registrationNumber == registrationNumber).ToListAsync();
-                for (int i = 0; i < itemsForUpdate.Count; i++)
-                    itemsForUpdate[i].registrationNumber = vehicule.registrationNumber;
-                await delete(registrationNumber);
-            }
-            else
-            {
                 _context.Entry(vehicule).State = EntityState.Modified;
 
                 try
@@ -80,7 +67,6 @@ namespace Autoparc.Dao
                     }
                 }
             }
-         
             return new EmptyResult(); 
         }
         public async Task<ActionResult<Vehicule>> delete(string registrationNumber)
