@@ -13,8 +13,6 @@ namespace Autoparc.Dao
         public LocationRepository(VehiculeContext context) : base(context)
         {
         }
-
-
         public async Task<ActionResult<IEnumerable<DriverLocationHistory>>> GetAll()
         {
             try

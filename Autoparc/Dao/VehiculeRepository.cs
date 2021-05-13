@@ -49,22 +49,23 @@ namespace Autoparc.Dao
 
             if (registrationNumber != vehicule.registrationNumber)
             {
-                _context.Entry(vehicule).State = EntityState.Modified;
+                throw new NotImplementedException();
+            }
+            _context.Entry(vehicule).State = EntityState.Modified;
 
-                try
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!VehiculeExists(registrationNumber))
                 {
-                    await _context.SaveChangesAsync();
+                    throw new NotImplementedException();
                 }
-                catch (DbUpdateConcurrencyException)
+                else
                 {
-                    if (!VehiculeExists(registrationNumber))
-                    {
-                        throw new NotImplementedException();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    throw;
                 }
             }
             return new EmptyResult(); 

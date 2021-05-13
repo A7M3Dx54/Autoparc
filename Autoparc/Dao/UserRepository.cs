@@ -45,27 +45,28 @@ namespace Autoparc.Dao
         }
         public async Task<IActionResult> update(string cin, User user)
         {
-           if (cin != user.cin)
+            if (cin != user.cin)
             {
-                _context.Entry(user).State = EntityState.Modified;
+                throw new NotImplementedException();
+            }
+            _context.Entry(user).State = EntityState.Modified;
 
-                try
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!UserExists(cin))
                 {
-                    await _context.SaveChangesAsync();
+                    throw new NotImplementedException();
                 }
-                catch (DbUpdateConcurrencyException)
+                else
                 {
-                    if (!UserExists(cin))
-                    {
-                        throw new NotImplementedException();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    throw;
                 }
             }
-            return new EmptyResult(); ;
+            return new EmptyResult();
         }
         public async Task<ActionResult<User>> delete(string cin)
         {
