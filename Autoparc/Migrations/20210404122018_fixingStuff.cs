@@ -6,16 +6,16 @@ namespace Autoparc.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<string>(
-                name: "registrationNumber",
-                table: "taches",
-                type: "nvarchar(450)",
-                nullable: true);
+            /* migrationBuilder.AddColumn<string>(
+                 name: "registrationNumber",
+                 table: "taches",
+                 type: "nvarchar(450)",
+                 nullable: true);
 
-            migrationBuilder.CreateIndex(
-                name: "IX_taches_registrationNumber",
-                table: "taches",
-                column: "registrationNumber");
+             migrationBuilder.CreateIndex(
+                 name: "IX_taches_registrationNumber",
+                 table: "taches",
+                 column: "registrationNumber");*/
 
             migrationBuilder.AddForeignKey(
                 name: "FK_taches_users_registrationNumber",
@@ -37,9 +37,9 @@ namespace Autoparc.Migrations
                 name: "IX_taches_registrationNumber",
                 table: "taches");
 
-            migrationBuilder.DropColumn(
+           /* migrationBuilder.DropColumn(
                 name: "registrationNumber",
-                table: "taches");
+                table: "taches");*/
         }
     }
 }

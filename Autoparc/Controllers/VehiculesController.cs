@@ -68,6 +68,18 @@ namespace Autoparc.Controllers
         {
             return await vehiculeService.changeStateByRegistrationNumber(registrationNumber, state);
         }
-
+        [Route("[action]")]
+        [HttpGet]
+        public object TasksNumberByVehicule()
+        {
+            return vehiculeService.TasksNumberByVehicule();
+        }
+        [Route("[action]")]
+        [HttpGet]
+        public object costByVehicule()
+        {
+            return vehiculeService.costByVehicule();
+        }
+        
     }
 }

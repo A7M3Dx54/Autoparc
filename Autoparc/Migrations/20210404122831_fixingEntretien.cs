@@ -6,7 +6,7 @@ namespace Autoparc.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<string>(
+           /* migrationBuilder.AddColumn<string>(
                 name: "registrationNumber",
                 table: "entretiens",
                 type: "nvarchar(450)",
@@ -15,7 +15,7 @@ namespace Autoparc.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_entretiens_registrationNumber",
                 table: "entretiens",
-                column: "registrationNumber");
+                column: "registrationNumber");*/
 
             migrationBuilder.AddForeignKey(
                 name: "FK_entretiens_users_registrationNumber",

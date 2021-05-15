@@ -15,5 +15,7 @@ namespace Autoparc.Dao
         public Task<IActionResult> update(string registrationNumber, Vehicule vehicule);
         public Task<ActionResult<Vehicule>> delete(string registrationNumber);
         public Task<IActionResult> changeStateByRegistrationNumber(string registrationNumber, string state);
+        public object TasksNumberByVehicule();
+        public object costByVehicule();
     }
 }

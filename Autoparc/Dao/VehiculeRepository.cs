@@ -93,5 +93,24 @@ namespace Autoparc.Dao
             vehicule.state = state;
             return await update(registrationNumber, vehicule);
         }
+
+        public object TasksNumberByVehicule()
+        {
+            var result = _context.taches.Where(f => f.state == "terminé").GroupBy(e => e.usedCar).Select(g => new { registrationNumber = g.Key, numberOfTasks = g.Count() }).ToList();
+            return result;
+        }
+
+        public object costByVehicule()
+        {
+            var result = _context.entretiens.GroupBy(e=>e.registrationNumber).Select(a => new
+            {
+                registrationNumber = a.Key,
+                cost= a.Sum(a=>a.cost)
+            }).OrderBy(e=>e.cost).ToList();
+            return result;
+        }
+
+
+
     }
 }

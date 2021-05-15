@@ -96,5 +96,15 @@ namespace Autoparc.Dao
             user.state = state;
             return await update(cin, user); 
         }
+
+        public  object TasksNumberByDriver()
+
+        {
+           
+
+        var result = _context.taches.Where(g => g.state == "terminé").GroupBy(e => e.cin)
+                .Select(a => new { cin= a.Key, count =a.Count() } ).ToList();
+            return result;
+        }
     }
 }

@@ -16,5 +16,8 @@ namespace Autoparc.Services
         public Task<ActionResult<User>> delete(string cin);
         public Task<ActionResult<User>> login(string cin, string password);
         public Task<IActionResult> changeStateByCin(string cin, string state);
+
+
+        public object TasksNumberByDriver();
     }
 }

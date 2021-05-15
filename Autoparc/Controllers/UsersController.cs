@@ -75,5 +75,13 @@ namespace Autoparc.Controllers
             return await userService.changeStateByCin(cin, state);
         }
 
+
+        [Route("[action]")]
+        [HttpGet]
+        public object TasksNumberByDriver()
+        {
+            return userService.TasksNumberByDriver();
+        }
+
     }
 }

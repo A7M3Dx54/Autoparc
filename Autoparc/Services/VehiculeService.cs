@@ -48,5 +48,16 @@ namespace Autoparc.Services
         {
             return await vehiculeRepository.changeStateByRegistrationNumber(registrationNumber,state);
         }
+
+        public object TasksNumberByVehicule()
+        {
+            return vehiculeRepository.TasksNumberByVehicule();
+        }
+        public object costByVehicule()
+        {
+            return vehiculeRepository.costByVehicule();
+        }
+        
+
     }
 }

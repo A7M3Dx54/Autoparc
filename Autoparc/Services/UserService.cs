@@ -64,5 +64,11 @@ namespace Autoparc.Services
                 return null; 
             }
         }
+
+
+        public object TasksNumberByDriver()
+        {
+            return userRepository.TasksNumberByDriver();
+        }
     }
 }
